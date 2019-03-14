@@ -4,9 +4,9 @@
 <div class="container"
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        <div class="custom-file">
-            <input type="file" class="custom-file-input" name="file" accept="text/csv">
-            <label class="custom-file-label" for="customFile">Choose file</label>
+        <div class="custom-file" style = "margin-bottom: 6px;">
+            <input type="file" class="custom-file-input" name="file" accept="text/csv" style="opacity:100;">
+            <label class="custom-file-label" for="customFile"></label> 
         </div>
         <input type="submit" class="btn btn-primary btn-sm">
     </form>
