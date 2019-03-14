@@ -6,3 +6,6 @@ class Product(models.Model):
     name = models.CharField(max_length=256)
     description = models.TextField()
     active = models.BooleanField(default=True)
+
+    class Meta:
+        ordering = ('name',)
