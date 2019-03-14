@@ -2,8 +2,11 @@ import csv
 
 from django.shortcuts import render
 from django.views import View
+from django.core.files.storage import default_storage
 
 from products.models import Product
+
+from .tasks import insert_records_to_db
 
 # Create your views here.
 class UploadView(View):
@@ -12,17 +15,6 @@ class UploadView(View):
 
     def post(self, request):
         csv_file = request.FILES['file']
-        content = csv_file.read().decode('utf-8').splitlines()
-        reader = csv.DictReader(content)
-        for row in reader:
-            try:
-                product = Product.objects.get(sku=row['sku'])
-                product.name = row['name']
-                product.description = row['description']
-                product.save()
-            except Product.DoesNotExist:
-                Product.objects.create(
-                        sku=row['sku'],
-                        name=row['name'],
-                        description=row['description'])
+        file_name = default_storage.save(csv_file.name, csv_file)
+        insert_records_to_db.delay(file_name)
         return render(request, 'upload.html')
