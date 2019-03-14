@@ -1,2 +1,2 @@
 django==2.1.7
-django-celery==3.2.2
+celery
