@@ -1,9 +1,14 @@
-<html>
-    <body>
-        <form method="post" enctype="multipart/form-data">
-            {% csrf_token %}
-            <input type="file" name="file" accept="text/csv">
-            <input type="submit">
-        </form>
-    </body>
-</html>
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container"
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="custom-file">
+            <input type="file" class="custom-file-input" name="file" accept="text/csv">
+            <label class="custom-file-label" for="customFile">Choose file</label>
+        </div>
+        <input type="submit" class="btn btn-primary btn-sm">
+    </form>
+</div>
+{% endblock %}

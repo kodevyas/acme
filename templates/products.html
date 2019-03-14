@@ -1,12 +1,14 @@
-<html>
-    <body>
-        <form method='get'>
-            <input type="text" name="query">
-            <input type="submit" value="Search">
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">
+        <form method='get' class="row form-inline justify-content-center">
+            <input class="form-control mx-2 " type="text" name="query">
+            <input class="btn btn-primary" type="submit" value="Search">
         </form>
         <form method='post' action="/products/delete">
             {% csrf_token %}
-            <input type="submit" value="Delete All">
+            <input type="submit" value="Delete All" class="btn btn-sm btn-danger">
         </form>
         <div>
             Filter on Active
@@ -14,9 +16,16 @@
             <a href="?{{active_filter_url}}">Active</a>
         </div>
         {% for product in products %}
-        <ul>
-            <li>{{product.sku}} - {{product.name}}</li>
+        <ul class="list-group">
+            <li class="list-group-item">
+                <div class="row">
+                    <div class="col-2 text-center">{{product.name}}</div>
+                    <div class="col-2 text-center font-weight-bold">{{product.sku}}</div>
+                    <div class="col-2 text-center">{{product.active}}</div>
+                    <div class="col-6">{{product.description}}</div>
+                </div>
+            </li>
         </ul>
         {% endfor %}
-    </body>
-</html>
+    </div>
+{% endblock %}
